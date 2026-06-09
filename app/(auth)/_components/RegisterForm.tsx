@@ -3,10 +3,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { RegisterData, registerSchema } from "../schema";
+import { register as apiRegister } from '../../../lib/api/auth';
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+
 
 export default function RegisterForm() {
     const router = useRouter();
@@ -21,29 +22,59 @@ export default function RegisterForm() {
 
     const [pending, setTransition] = useTransition()
 
+    const formatServerMessage = (m: any) => {
+        if (!m) return null;
+        if (typeof m === 'string') return m;
+        if (Array.isArray(m)) return m.join(', ');
+        if (typeof m === 'object') {
+            // try common shapes
+            if (m.message && typeof m.message === 'string') return m.message;
+            if (m.errors) {
+                if (Array.isArray(m.errors)) return m.errors.join(', ');
+                if (typeof m.errors === 'object') return Object.values(m.errors).flat().join(', ');
+            }
+            // last resort
+            return JSON.stringify(m);
+        }
+        return String(m);
+    };
+
     const submit = async (values: RegisterData) => {
-        setTransition( async () => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            router.push("/login");
-        })
-        // GO TO LOGIN PAGE
-        console.log("register", values);
+        try {
+            const resp = await apiRegister({
+                username: values.username,
+                email: values.email,
+                password: values.password,
+                confirmPassword: values.confirmPassword,
+            });
+            const successMsg = formatServerMessage(resp?.message) || 'Registration successful';
+            // show a clear success message then redirect
+            // eslint-disable-next-line no-alert
+            alert(successMsg);
+            setTransition(() => {
+                router.push("/login");
+            });
+        } catch (err: any) {
+            console.error('Registration error', err);
+            const serverMsg = formatServerMessage(err?.response?.data?.message || err?.response?.data || err?.message);
+            // eslint-disable-next-line no-alert
+            alert(serverMsg || 'Registration failed');
+        }
     };
 
     return (
         <form onSubmit={handleSubmit(submit)} className="space-y-4">
             <div className="space-y-1">
-                <label className="text-sm font-medium" htmlFor="name">Full name</label>
+                <label className="text-sm font-medium text-black" htmlFor="username">Username</label>
                 <input
-                    id="name"
+                    id="username"
                     type="text"
-                    autoComplete="name"
+                    autoComplete="username"
                     className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
-                    {...register("name")}
-                    placeholder="Jane Doe"
+                    {...register("username")}
                 />
-                {errors.name?.message && (
-                    <p className="text-xs text-red-600">{errors.name.message}</p>
+                {errors.username?.message && (
+                    <p className="text-xs text-red-600">{errors.username.message}</p>
                 )}
             </div>
 
@@ -55,7 +86,6 @@ export default function RegisterForm() {
                     autoComplete="email"
                     className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
                     {...register("email")}
-                    placeholder="you@example.com"
                 />
                 {errors.email?.message && (
                     <p className="text-xs text-red-600">{errors.email.message}</p>
@@ -70,7 +100,6 @@ export default function RegisterForm() {
                     autoComplete="new-password"
                     className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
                     {...register("password")}
-                    placeholder="••••••"
                 />
                 {errors.password?.message && (
                     <p className="text-xs text-red-600">{errors.password.message}</p>
@@ -85,7 +114,6 @@ export default function RegisterForm() {
                     autoComplete="new-password"
                     className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
                     {...register("confirmPassword")}
-                    placeholder="••••••"
                 />
                 {errors.confirmPassword?.message && (
                     <p className="text-xs text-red-600">{errors.confirmPassword.message}</p>
@@ -97,12 +125,10 @@ export default function RegisterForm() {
                 disabled={isSubmitting || pending}
                 className="h-10 w-full rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 disabled:opacity-60"
             >
-                { isSubmitting || pending ? "Creating account..." : "Create account"}
+                { isSubmitting || pending ? "Signing up..." : "Signup"}
             </button>
 
-            <div className="mt-1 text-center text-sm">
-                Already have an account? <Link href="/login" className="font-semibold hover:underline">Log in</Link>
-            </div>
+            
         </form>
     );
 }

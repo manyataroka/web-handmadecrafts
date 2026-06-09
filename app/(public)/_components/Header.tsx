@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const NAV_LINKS = [
@@ -13,6 +13,25 @@ const NAV_LINKS = [
 export default function Header() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState<string | null>(null);
+
+    useEffect(() => {
+        try {
+            const v = localStorage.getItem('isLoggedIn');
+            setIsLoggedIn(!!v);
+            setUsername(localStorage.getItem('username'));
+        } catch (e) {
+            setIsLoggedIn(false);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        try { localStorage.removeItem('isLoggedIn'); localStorage.removeItem('username'); } catch(e){}
+        setIsLoggedIn(false);
+        // navigate to home
+        window.location.href = '/';
+    };
 
     const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname?.startsWith(href));
 
@@ -51,18 +70,29 @@ export default function Header() {
                     {/* Right: Auth + Mobile Toggle */}
                     <div className="flex items-center gap-2 md:justify-self-end">
                         <div className="hidden sm:flex items-center gap-2">
-                            <Link
-                                href="/login"
-                                className="h-9 px-3 inline-flex items-center justify-center rounded-md border border-black/10 dark:border-white/15 text-sm font-medium hover:bg-foreground/5 transition-colors"
-                            >
-                                Log in
-                            </Link>
-                            <Link
-                                href="/register"
-                                className="h-9 px-3 inline-flex items-center justify-center rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity"
-                            >
-                                Sign up
-                            </Link>
+                            {isLoggedIn ? (
+                                <>
+                                    <Link href="/dashboard" className="h-9 px-3 inline-flex items-center justify-center rounded-md text-sm font-medium">
+                                        Dashboard
+                                    </Link>
+                                    <button onClick={handleLogout} className="h-9 px-3 inline-flex items-center justify-center rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity">Log out</button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        href="/login"
+                                        className="h-9 px-3 inline-flex items-center justify-center rounded-md border border-black/10 dark:border-white/15 text-sm font-medium hover:bg-foreground/5 transition-colors"
+                                    >
+                                        Log in
+                                    </Link>
+                                    <Link
+                                        href="/register"
+                                        className="h-9 px-3 inline-flex items-center justify-center rounded-md bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity"
+                                    >
+                                        Sign up
+                                    </Link>
+                                </>
+                            )}
                         </div>
 
                         {/* Theme toggle */}
