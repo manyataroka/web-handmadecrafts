@@ -7,7 +7,9 @@ import ThemeToggle from "./ThemeToggle";
 
 const NAV_LINKS = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact Us" },
+    { href: "/accessories", label: "Accessories" },
+    { href: "/about", label: "About Us" },
 ];
 
 export default function Header() {
