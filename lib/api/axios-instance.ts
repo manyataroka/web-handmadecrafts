@@ -25,29 +25,35 @@ export default axiosInstance;
 if (process.env.NODE_ENV !== 'production') {
     axiosInstance.interceptors.request.use((config) => {
         // eslint-disable-next-line no-console
-        console.debug('[api] request', config.method, (config.baseURL || '') + (config.url || ''), config);
+        console.debug('[api] request', config.method, (config.baseURL || '') + (config.url || ''));
         return config;
     }, (err) => {
         // eslint-disable-next-line no-console
-        console.error('[api] request error', err);
+        console.error('[api] request error ->',
+            '\n  message:', err?.message,
+            '\n  code:   ', err?.code,
+            '\n  name:   ', err?.name,
+            err
+        );
         return Promise.reject(err);
     });
 
     axiosInstance.interceptors.response.use((res) => {
         // eslint-disable-next-line no-console
-        console.debug('[api] response', res.config.url, res.status, res.data);
+        console.debug('[api] response', res.config.url, res.status);
         return res;
     }, (err) => {
+        const url = (err?.config?.baseURL || '') + (err?.config?.url || '');
+        const status = err?.response?.status;
+        const data = err?.response?.data;
         // eslint-disable-next-line no-console
-        console.error(
-            '[api] response error',
-            {
-                url: (err?.config?.baseURL || '') + (err?.config?.url || ''),
-                status: err?.response?.status,
-                data: err?.response?.data,
-                code: err?.code,
-                message: err?.message,
-            }
+        console.error('[api] response error ->',
+            '\n  url:    ', url,
+            '\n  status: ', status,
+            '\n  code:   ', err?.code,
+            '\n  message:', err?.message,
+            '\n  data:   ', typeof data === 'object' ? JSON.stringify(data) : data,
+            '\n  stack:  ', err?.stack?.split('\n')[0],
         );
         return Promise.reject(err);
     });

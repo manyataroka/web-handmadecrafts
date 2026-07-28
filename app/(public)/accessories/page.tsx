@@ -1,15 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-
-interface Product {
-    name: string;
-    price: number;
-    imagePath: string;
-    category: string;
-    isFavorited?: boolean;
-}
+import type { Product } from '../../../lib/api/product';
+import ProductDetailModal from '../_components/ProductDetailModal';
+import { useFavorites } from '../../context/FavoritesContext';
 
 const products: Product[] = [
     { name: 'Beads Necklace', price: 400, imagePath: '/images/img2.jpg', category: 'necklace' },
@@ -31,45 +26,24 @@ const products: Product[] = [
 ];
 
 export default function Page() {
-    const [favorites, setFavorites] = useState<string[]>([]);
-
-    useEffect(() => {
-        try {
-            const saved = localStorage.getItem('favorites');
-            if (saved) {
-                setFavorites(JSON.parse(saved));
-            }
-        } catch (e) {
-            console.error('Failed to load favorites:', e);
-        }
-    }, []);
-
-    const toggleFavorite = (productName: string) => {
-        let newFavorites;
-        if (favorites.includes(productName)) {
-            newFavorites = favorites.filter(name => name !== productName);
-        } else {
-            newFavorites = [...favorites, productName];
-        }
-        setFavorites(newFavorites);
-        try {
-            localStorage.setItem('favorites', JSON.stringify(newFavorites));
-        } catch (e) {
-            console.error('Failed to save favorites:', e);
-        }
-    };
+    const { favorites, toggleFavorite } = useFavorites();
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white/70 to-[#FCEEEE] pb-20">
+        <div className="pb-20 bg-gradient-to-b from-rose-100 to-white min-h-[calc(100vh-4rem)]">
             <div className="px-5 pt-6">
-                <h1 className="text-2xl font-bold text-black mb-2">Accessories</h1>
-                <p className="text-black/70 text-sm">Browse our full collection of handmade jewelry</p>
+                <h1 className="text-2xl font-bold text-[#1A1A1A] mb-2">Accessories</h1>
+                <p className="text-[#64748B] text-sm">Browse our full collection of handmade jewelry</p>
             </div>
             <div className="px-6 mt-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {products.map((product) => (
                         <div key={product.name} className="relative">
-                            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                            <button
+                                type="button"
+                                onClick={() => setSelectedProduct(product)}
+                                className="w-full text-left bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                            >
                                 <div className="relative aspect-square flex items-center justify-center p-6">
                                     <Image
                                         src={product.imagePath}
@@ -79,10 +53,11 @@ export default function Page() {
                                         className="object-contain"
                                     />
                                 </div>
-                            </div>
+                            </button>
                             <button
+                                type="button"
                                 onClick={() => toggleFavorite(product.name)}
-                                className="absolute top-3 right-3 bg-[#FFE0E0] rounded-full p-1.5"
+                                className="absolute top-3 right-3 bg-[#FFE0E0] rounded-full p-1.5 z-10"
                             >
                                 <svg
                                     className={`w-5 h-5 ${favorites.includes(product.name) ? 'text-[#FF0000] fill-current' : 'text-[#FF0000]'}`}
@@ -95,14 +70,20 @@ export default function Page() {
                                     )}
                                 </svg>
                             </button>
-                            <div className="text-center mt-2">
-                                <h3 className="font-bold text-sm text-black">{product.name}</h3>
+                            <div className="text-center mt-2 px-3 pb-3">
+                                <h3 className="font-bold text-sm text-[#1A1A1A]">{product.name}</h3>
                                 <p className="text-[#FF0000] font-semibold text-xs mt-1">₹ {product.price}</p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+
+            <ProductDetailModal
+                product={selectedProduct}
+                isOpen={!!selectedProduct}
+                onClose={() => setSelectedProduct(null)}
+            />
         </div>
     );
 }

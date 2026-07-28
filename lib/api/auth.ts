@@ -31,3 +31,18 @@ export const login = async (data: any) => {
         throw error;
     }
 }
+
+export const resetPassword = async (data: any) => {
+    try {
+        // eslint-disable-next-line no-console
+        console.debug('[auth] resetPassword ->', API.AUTH.RESET_PASSWORD, data);
+        const response = await axiosInstance.post(API.AUTH.RESET_PASSWORD, data);
+        // eslint-disable-next-line no-console
+        console.debug('[auth] resetPassword response', response.status, response.data);
+        return response.data;
+    } catch (error: any) {
+        // eslint-disable-next-line no-console
+        console.error('[auth] resetPassword error', error?.response?.status, error?.response?.data || error.message || error);
+        throw error;
+    }
+}

@@ -6,7 +6,7 @@ import { setAuthToken } from "../../lib/api/axios-instance";
 export default function AuthInit() {
     useEffect(() => {
         try {
-            const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+            const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
             if (token) {
                 setAuthToken(token);
             }

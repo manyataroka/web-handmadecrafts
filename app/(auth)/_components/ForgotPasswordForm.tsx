@@ -1,22 +1,20 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterData, registerSchema } from "../schema";
-import { register as apiRegister } from '../../../lib/api/auth';
+import { ForgotPasswordData, forgotPasswordSchema } from "../schema";
+import { resetPassword as apiResetPassword } from '../../../lib/api/auth';
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-
-export default function RegisterForm() {
+export default function ForgotPasswordForm() {
     const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<RegisterData>({
-        resolver: zodResolver(registerSchema),
+    } = useForm<ForgotPasswordData>({
+        resolver: zodResolver(forgotPasswordSchema),
         mode: "onSubmit",
     });
 
@@ -37,72 +35,42 @@ export default function RegisterForm() {
         return String(m);
     };
 
-    const submit = async (values: RegisterData) => {
+    const submit = async (values: ForgotPasswordData) => {
         try {
-            const resp = await apiRegister({
-                username: values.username,
-                email: values.email,
-                password: values.password,
+            const resp = await apiResetPassword({
+                newPassword: values.newPassword,
                 confirmPassword: values.confirmPassword,
             });
-            const successMsg = formatServerMessage(resp?.message) || 'Registration successful';
+            const successMsg = formatServerMessage(resp?.message) || 'Password reset successful';
             alert(successMsg);
             setTransition(() => {
                 router.push("/login");
             });
         } catch (err: any) {
-            console.error('Registration error', err);
+            console.error('Reset password error', err);
             const serverMsg = formatServerMessage(err?.response?.data?.message || err?.response?.data || err?.message);
-            alert(serverMsg || 'Registration failed');
+            alert(serverMsg || 'Password reset failed');
         }
     };
 
     return (
         <form onSubmit={handleSubmit(submit)} className="space-y-4">
             <div className="space-y-1">
-                <label className="text-sm font-medium text-black text-center block" htmlFor="username">Username</label>
+                <label className="text-sm font-medium text-black text-center block" htmlFor="newPassword">New Password</label>
                 <input
-                    id="username"
-                    type="text"
-                    autoComplete="username"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
-                    {...register("username")}
-                />
-                {errors.username?.message && (
-                    <p className="text-xs text-red-600 text-left">{errors.username.message}</p>
-                )}
-            </div>
-
-            <div className="space-y-1">
-                <label className="text-sm font-medium text-black text-center block" htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
-                    {...register("email")}
-                />
-                {errors.email?.message && (
-                    <p className="text-xs text-red-600 text-left">{errors.email.message}</p>
-                )}
-            </div>
-
-            <div className="space-y-1">
-                <label className="text-sm font-medium text-black text-center block" htmlFor="password">Password</label>
-                <input
-                    id="password"
+                    id="newPassword"
                     type="password"
                     autoComplete="new-password"
                     className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
-                    {...register("password")}
+                    {...register("newPassword")}
                 />
-                {errors.password?.message && (
-                    <p className="text-xs text-red-600 text-left">{errors.password.message}</p>
+                {errors.newPassword?.message && (
+                    <p className="text-xs text-red-600 text-left">{errors.newPassword.message}</p>
                 )}
             </div>
 
             <div className="space-y-1">
-                <label className="text-sm font-medium text-black text-center block" htmlFor="confirmPassword">Confirm password</label>
+                <label className="text-sm font-medium text-black text-center block" htmlFor="confirmPassword">Confirm Password</label>
                 <input
                     id="confirmPassword"
                     type="password"
@@ -120,8 +88,9 @@ export default function RegisterForm() {
                 disabled={isSubmitting || pending}
                 className="h-11 w-full rounded-lg bg-[#ef5c5c] text-white text-lg font-bold hover:bg-[#E53935] disabled:opacity-60 transition-colors"
             >
-                {isSubmitting || pending ? "Signing up..." : "Sign up"}
+                {isSubmitting || pending ? "Resetting..." : "Reset Password"}
             </button>
         </form>
     );
 }
+
