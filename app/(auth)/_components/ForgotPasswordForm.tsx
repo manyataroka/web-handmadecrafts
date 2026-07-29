@@ -61,7 +61,7 @@ export default function ForgotPasswordForm() {
                     id="newPassword"
                     type="password"
                     autoComplete="new-password"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("newPassword")}
                 />
                 {errors.newPassword?.message && (
@@ -75,7 +75,7 @@ export default function ForgotPasswordForm() {
                     id="confirmPassword"
                     type="password"
                     autoComplete="new-password"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("confirmPassword")}
                 />
                 {errors.confirmPassword?.message && (

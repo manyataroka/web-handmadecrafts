@@ -8,7 +8,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-b from-rose-100 to-white flex items-center justify-center px-4">
       <div className="w-full max-w-[680px] text-center">
         <div className="mb-8 flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full overflow-hidden border border-[#ffcdd2]">
+          <div className="w-20 h-20 rounded-full overflow-hidden border border-orange-200">
             <Image src="/images/Image1.jpg" alt="Logo" width={80} height={80} className="object-cover w-full h-full" />
           </div>
           <h2 className="mt-5 text-2xl font-bold text-[#ef5c5c]">Login</h2>

@@ -92,22 +92,22 @@ export default function ProductDetailModal({
             />
 
             <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-3 bg-[#FFE0E0] border-b border-[#ffcdd2]">
-                    <h2 id="product-detail-title" className="text-base font-bold text-[#c2185b]">
+                <div className="flex items-center justify-between px-5 py-3 bg-orange-50 border-b border-orange-200">
+                    <h2 id="product-detail-title" className="text-base font-bold text-[#ef5c5c]">
                         Product Details
                     </h2>
                     <button
                         type="button"
                         onClick={onClose}
                         aria-label="Close"
-                        className="h-8 w-8 inline-flex items-center justify-center rounded-full text-[#c2185b] hover:bg-white/80 transition-colors text-xl leading-none"
+                        className="h-8 w-8 inline-flex items-center justify-center rounded-full text-[#ef5c5c] hover:bg-white/80 transition-colors text-xl leading-none"
                     >
                         ×
                     </button>
                 </div>
 
                 <div className="px-6 pt-6 pb-5 flex flex-col items-center">
-                    <div className="relative w-full aspect-square max-w-[280px] rounded-xl overflow-hidden bg-[#FFF5F7] mb-5">
+                    <div className="relative w-full aspect-square max-w-[280px] rounded-xl overflow-hidden bg-orange-50 mb-5">
                         <Image
                             src={product.imagePath || '/images/img2.jpg'}
                             alt={product.name}
@@ -117,7 +117,7 @@ export default function ProductDetailModal({
                         />
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#c2185b] text-center mb-2">
+                    <h3 className="text-xl font-bold text-[#1A1A1A] text-center mb-2">
                         {product.name}
                     </h3>
                     <p className="text-lg font-semibold text-[#1A1A1A] mb-6">
@@ -128,7 +128,7 @@ export default function ProductDetailModal({
                         type="button"
                         onClick={handleAddToCart}
                         disabled={adding}
-                        className="w-full max-w-xs h-12 rounded-full bg-[#E91E63] hover:bg-[#c2185b] disabled:opacity-70 text-white font-bold text-lg transition-colors"
+                        className="w-full max-w-xs h-12 rounded-full bg-[#ef5c5c] hover:bg-[#E53935] disabled:opacity-70 text-white font-bold text-lg transition-colors"
                     >
                         {added ? 'Added!' : adding ? 'Adding...' : 'Add to Cart'}
                     </button>

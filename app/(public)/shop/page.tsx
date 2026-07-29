@@ -7,8 +7,6 @@ import {
     getProducts,
 } from '../../../lib/api/product';
 import ProductDetailModal from '../_components/ProductDetailModal';
-import { addToCart, isUserLoggedIn } from '../../../lib/cart';
-import { useRouter } from 'next/navigation';
 
 interface LocalProduct {
     name: string;
@@ -138,7 +136,7 @@ export default function ShopPage() {
                 <p className="text-[#64748B] text-sm mb-5">Browse our full collection of handmade jewelry</p>
 
                 <div className="flex justify-center">
-                    <div className="w-full max-w-md h-12 bg-[#FFE0E0] rounded-full flex items-center px-4">
+                    <div className="w-full max-w-md h-12 bg-orange-50 rounded-full flex items-center px-4">
                         <svg className="w-5 h-5 text-[#94A3B8] cursor-pointer hover:text-[#ef5c5c] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" onClick={() => {}}>
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -176,7 +174,7 @@ export default function ShopPage() {
                                 className={`text-xs font-semibold px-4 py-2 rounded-full transition-colors ${
                                     selectedFilter === index
                                         ? 'bg-[#ef5c5c] text-white'
-                                        : 'bg-transparent text-gray-500 hover:bg-[#FFE0E0]'
+                                        : 'bg-transparent text-gray-500 hover:bg-orange-50'
                                 }`}
                             >
                                 {filter}
@@ -248,28 +246,6 @@ function ProductCard({
     onToggleFavorite: () => void;
     onSelect: () => void;
 }) {
-    const router = useRouter();
-    const [adding, setAdding] = useState(false);
-
-    const handleAddToCart = async (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (!isUserLoggedIn()) {
-            router.push('/login');
-            return;
-        }
-        setAdding(true);
-        try {
-            await addToCart({
-                _id: product._id,
-                name: product.name,
-                price: product.price,
-                imagePath: product.imagePath || '/images/img2.jpg',
-            });
-        } finally {
-            setAdding(false);
-        }
-    };
-
     return (
         <div className="relative">
             <button
@@ -305,10 +281,10 @@ function ProductCard({
                     e.stopPropagation();
                     onToggleFavorite();
                 }}
-                className="absolute top-3 right-3 bg-[#FFE0E0] rounded-full p-1.5 z-10"
+                className="absolute top-3 right-3 bg-orange-50 rounded-full p-1.5 z-10"
             >
                 <svg
-                    className={`w-5 h-5 ${isFavorited ? 'text-[#FF0000] fill-current' : 'text-[#FF0000]'}`}
+                    className={`w-5 h-5 ${isFavorited ? 'text-[#ef5c5c] fill-current' : 'text-[#ef5c5c]'}`}
                     viewBox="0 0 24 24"
                 >
                     {isFavorited ? (
@@ -320,14 +296,13 @@ function ProductCard({
             </button>
             <div className="text-center mt-2 px-3 pb-3">
                 <h3 className="font-bold text-sm text-[#1A1A1A]">{product.name}</h3>
-                <p className="text-[#FF0000] font-semibold text-xs mt-1">₹ {product.price}</p>
+                <p className="text-[#ef5c5c] font-semibold text-xs mt-1">₹ {product.price}</p>
                 <button
                     type="button"
-                    onClick={handleAddToCart}
-                    disabled={adding}
-                    className="mt-3 w-full h-10 inline-flex items-center justify-center rounded-full bg-[#ef5c5c] hover:bg-[#E53935] disabled:opacity-70 text-white text-sm font-bold transition-colors"
+                    onClick={onSelect}
+                    className="mt-3 w-full h-10 inline-flex items-center justify-center rounded-full bg-[#ef5c5c] hover:bg-[#E53935] text-white text-sm font-bold transition-colors"
                 >
-                    {adding ? 'Adding…' : 'Add to Cart'}
+                    View Details
                 </button>
             </div>
         </div>

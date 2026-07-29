@@ -106,7 +106,7 @@ export default function LoginForm() {
                     id="email"
                     type="email"
                     autoComplete="email"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("email")}
                 />
                 {errors.email?.message && (
@@ -120,7 +120,7 @@ export default function LoginForm() {
                     id="password"
                     type="password"
                     autoComplete="current-password"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("password")}
                 />
                 {errors.password?.message && (

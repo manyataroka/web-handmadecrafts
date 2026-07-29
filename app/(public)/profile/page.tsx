@@ -131,7 +131,7 @@ export default function ProfilePage() {
                                     }
                                     setEditing((v) => !v);
                                 }}
-                                className="self-center sm:self-start h-11 px-7 rounded-full bg-[#E91E63] hover:bg-[#c2185b] text-white font-bold text-lg transition-colors"
+                                className="self-center sm:self-start h-11 px-7 rounded-full bg-[#ef5c5c] hover:bg-[#E53935] text-white font-bold text-lg transition-colors"
                             >
                                 {editing ? 'Save' : 'Edit'}
                             </button>
@@ -139,7 +139,7 @@ export default function ProfilePage() {
 
                         <div className="mb-6">
                             <div className="flex items-center gap-6 mb-6">
-                                <div className="w-28 h-28 rounded-full border-4 border-pink-100 flex items-center justify-center text-3xl font-bold text-pink-600 bg-white overflow-hidden">
+                                <div className="w-28 h-28 rounded-full border-4 border-orange-100 flex items-center justify-center text-3xl font-bold text-[#ef5c5c] bg-white overflow-hidden">
                                     {photo ? (
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img src={photo} alt="Profile" className="w-full h-full object-cover" />
@@ -153,7 +153,7 @@ export default function ProfilePage() {
                                     <button
                                         type="button"
                                         onClick={onChangePhotoClick}
-                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E91E63] hover:bg-[#c2185b] text-white font-semibold"
+                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ef5c5c] hover:bg-[#E53935] text-white font-semibold"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth={2} className="mr-1">
                                             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3l2-3h8l2 3h3a2 2 0 0 1 2 2z" stroke="#fff" />
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                                             try { localStorage.setItem(STORAGE_KEY, JSON.stringify(fields)); } catch(_) {}
                                             setEditing(false);
                                         }}
-                                        className="flex-1 h-12 rounded-full bg-[#E91E63] hover:bg-[#c2185b] text-white font-bold"
+                                        className="flex-1 h-12 rounded-full bg-[#ef5c5c] hover:bg-[#E53935] text-white font-bold"
                                     >
                                         Save Changes
                                     </button>

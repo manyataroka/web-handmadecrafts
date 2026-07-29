@@ -94,7 +94,7 @@ export default function Page() {
                             <div className="pt-4 flex justify-center">
                                 <button
                                     type="submit"
-                                    className="h-12 px-10 rounded-full bg-[#E91E63] hover:bg-[#c2185b] text-white font-bold transition-colors"
+                                    className="h-12 px-10 rounded-full bg-[#ef5c5c] hover:bg-[#E53935] text-white font-bold transition-colors"
                                 >
                                     Contact Us
                                 </button>

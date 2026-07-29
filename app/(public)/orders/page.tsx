@@ -80,7 +80,7 @@ export default function Page() {
                     <Link
                         href="/shop"
                         className="inline-flex items-center justify-center px-8 py-3 rounded-full shadow-lg font-bold text-base transition-colors text-white"
-                        style={{ backgroundColor: '#E91E63' }}
+                        style={{ backgroundColor: '#ef5c5c' }}
                     >
                         Continue Shopping
                     </Link>
@@ -107,7 +107,7 @@ export default function Page() {
                         <Link
                             href="/shop"
                             className="inline-flex items-center justify-center px-7 py-3 rounded-full shadow-lg text-white font-bold transition-colors"
-                            style={{ backgroundColor: '#E91E63' }}
+                            style={{ backgroundColor: '#ef5c5c' }}
                         >
                             Start Shopping
                         </Link>
@@ -147,7 +147,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                             </span>
                         )}
                     </div>
-                    <div className="bg-[#FFF5F7] rounded-2xl px-5 py-3 inline-block">
+                    <div className="bg-orange-50 rounded-2xl px-5 py-3 inline-block">
                         <p className="text-[#64748B] text-sm sm:text-base">{order.date}</p>
                     </div>
                 </div>
@@ -160,7 +160,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
 
             {/* Line items preview */}
             {order.lineItems?.length > 0 && (
-                <div className="mb-7 bg-[#FFF5F7] rounded-2xl p-4 sm:p-5 space-y-3">
+                <div className="mb-7 bg-orange-50 rounded-2xl p-4 sm:p-5 space-y-3">
                     <h3 className="font-bold text-sm text-[#1A1A1A] mb-1">Items</h3>
                     {order.lineItems.map((li, idx) => (
                         <div
@@ -190,10 +190,10 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                 </div>
             )}
 
-            <div className="h-px my-7" style={{ backgroundColor: 'rgba(194,24,91,0.3)' }} />
+            <div className="h-px my-7" style={{ backgroundColor: 'rgba(239,92,92,0.3)' }} />
 
-            <div className="bg-[#FFF5F7] rounded-2xl p-5 sm:p-7 space-y-4">
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+            <div className="bg-orange-50 rounded-2xl p-5 sm:p-7 space-y-4">
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Total Amount:
                     </span>
@@ -202,7 +202,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                     </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Subtotal:
                     </span>
@@ -211,7 +211,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                     </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Shipping:
                     </span>
@@ -220,7 +220,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                     </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Items:
                     </span>
@@ -229,7 +229,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                     </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Delivery Address:
                     </span>
@@ -238,7 +238,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                     </span>
                 </div>
 
-                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(194,24,91,0.2)' }}>
+                <div className="flex items-center justify-between gap-4 pb-3" style={{ borderBottom: '1px solid rgba(239,92,92,0.2)' }}>
                     <span className="font-bold text-base sm:text-lg text-[#1A1A1A]">
                         Phone:
                     </span>
@@ -257,7 +257,7 @@ function OrderCard({ order, isNew }: { order: Order; isNew?: boolean }) {
                 </div>
 
                 {order.notes && (
-                    <div className="flex items-start justify-between gap-4 pt-3" style={{ borderTop: '1px solid rgba(194,24,91,0.2)' }}>
+                    <div className="flex items-start justify-between gap-4 pt-3" style={{ borderTop: '1px solid rgba(239,92,92,0.2)' }}>
                         <span className="font-bold text-sm text-[#1A1A1A]">
                             Notes:
                         </span>

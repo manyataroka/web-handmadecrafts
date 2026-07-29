@@ -65,7 +65,7 @@ export default function RegisterForm() {
                     id="username"
                     type="text"
                     autoComplete="username"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("username")}
                 />
                 {errors.username?.message && (
@@ -79,7 +79,7 @@ export default function RegisterForm() {
                     id="email"
                     type="email"
                     autoComplete="email"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("email")}
                 />
                 {errors.email?.message && (
@@ -93,7 +93,7 @@ export default function RegisterForm() {
                     id="password"
                     type="password"
                     autoComplete="new-password"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("password")}
                 />
                 {errors.password?.message && (
@@ -107,7 +107,7 @@ export default function RegisterForm() {
                     id="confirmPassword"
                     type="password"
                     autoComplete="new-password"
-                    className="h-11 w-full rounded-lg border border-[#ffcdd2] bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
+                    className="h-11 w-full rounded-lg border border-orange-200 bg-[#FCEAEA] px-4 text-base outline-none focus:border-[#ef5c5c] focus:ring-0"
                     {...register("confirmPassword")}
                 />
                 {errors.confirmPassword?.message && (

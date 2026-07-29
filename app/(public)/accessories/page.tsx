@@ -57,10 +57,10 @@ export default function Page() {
                             <button
                                 type="button"
                                 onClick={() => toggleFavorite(product.name)}
-                                className="absolute top-3 right-3 bg-[#FFE0E0] rounded-full p-1.5 z-10"
+                                className="absolute top-3 right-3 bg-orange-50 rounded-full p-1.5 z-10"
                             >
                                 <svg
-                                    className={`w-5 h-5 ${favorites.includes(product.name) ? 'text-[#FF0000] fill-current' : 'text-[#FF0000]'}`}
+                                    className={`w-5 h-5 ${favorites.includes(product.name) ? 'text-[#ef5c5c] fill-current' : 'text-[#ef5c5c]'}`}
                                     viewBox="0 0 24 24"
                                 >
                                     {favorites.includes(product.name) ? (
@@ -72,7 +72,7 @@ export default function Page() {
                             </button>
                             <div className="text-center mt-2 px-3 pb-3">
                                 <h3 className="font-bold text-sm text-[#1A1A1A]">{product.name}</h3>
-                                <p className="text-[#FF0000] font-semibold text-xs mt-1">₹ {product.price}</p>
+                                <p className="text-[#ef5c5c] font-semibold text-xs mt-1">₹ {product.price}</p>
                             </div>
                         </div>
                     ))}
